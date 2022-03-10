@@ -55,10 +55,6 @@
               <a href="#contact" class="nav-link">Contact</a>
             </li>
           </ul>
-
-          <div class="ml-auto">
-            <a href="#" class="btn btn-primary rounded-pill">Login</a>
-          </div>
         </div>
       </div>
     </nav>
@@ -97,7 +93,8 @@
         </div>
   
         <div class="row justify-content-center">
-          <div class="col-12 col-lg-auto py-3 wow fadeInLeft">
+
+          <div class="col-12 col-lg-auto py-3 wow fadeInLeft o_title">
             <div class="card-pricing">
               <div class="header">
                 <div class="price-icon"><span class="mai-home-outline"></span></div>
@@ -114,7 +111,7 @@
                 </div>   
               </div>
               <div class="footer">
-                 <button type="button" class="btn btn-outline-primary" data-type="okoa_bundle"  data-toggle="modal" data-target="#SwitchModal">
+                 <button type="button" class="btn btn-outline-primary task_offer" data-type="okoa_bundle"  data-toggle="modal" data-target="#SwitchModal">
                     Buy
                   </button>
               </div>
@@ -134,11 +131,11 @@
                   <span class="period"></span>
                 </div>
                 <div class="price-info">
-                  <p>Unlimited browsing for <span class="text-info">3 hrs</span></p>
+                  <p>Unlimited browsing for <span class="text-info">2 hrs</span></p>
                 </div>   
               </div>
               <div class="footer">
-               <button type="button" class="btn btn-outline-primary" data-type="simple_bundle"  data-toggle="modal" data-target="#SwitchModal">
+               <button type="button" class="btn btn-outline-primary task_offer" data-type="simple_bundle"  data-toggle="modal" data-target="#SwitchModal">
                     Buy
                   </button>
               </div>
@@ -158,16 +155,17 @@
                   <span class="period"></span>
                 </div>
                 <div class="price-info">
-                  <p>Unlimited browsing for <span class="text-info">5 hrs</span></p>
+                  <p>Unlimited browsing for <span class="text-info">4 hrs</span></p>
                 </div>
               </div>
               <div class="footer">
-                <button type="button" class="btn btn-outline-primary" data-type="jenga_bundle"  data-toggle="modal" data-target="#SwitchModal">
+                <button type="button" class="btn btn-outline-primary task_offer" data-type="jenga_bundle"  data-toggle="modal" data-target="#SwitchModal">
                     Buy
                   </button>
               </div>
             </div>
           </div>
+
 
            <div class="col-12 col-lg-auto py-3 wow fadeInLeft">
             <div class="card-pricing">
@@ -182,11 +180,35 @@
                   <span class="period"></span>
                 </div>
                 <div class="price-info">
-                  <p>Unlimited browsing for <span class="text-info">8 hrs</span></p>
+                  <p>Unlimited browsing for <span class="text-info">6 hrs</span></p>
                 </div>
               </div>
               <div class="footer">
-                <button type="button" class="btn btn-outline-primary" data-type="fire_bundle"  data-toggle="modal" data-target="#SwitchModal">
+                <button type="button" class="btn btn-outline-primary task_offer" data-type="fire_bundle"  data-toggle="modal" data-target="#SwitchModal">
+                    Buy
+                  </button>
+              </div>
+            </div>
+          </div>
+
+         <div class="col-12 col-lg-auto py-3 wow fadeInLeft">
+            <div class="card-pricing">
+              <div class="header">
+                <div class="price-icon"><span class="mai-danger-outline"></span></div>
+                <div class="price-title">Blaze Bundle</div>
+              </div>
+              <div class="body py-3">
+                <div class="price-tag">
+                  <span class="currency">ksh</span>
+                  <h2 class="display-4">40</h2>
+                  <span class="period"></span>
+                </div>
+                <div class="price-info">
+                  <p>Unlimited browsing for <span class="text-info">12 hrs</span></p>
+                </div>
+              </div>
+              <div class="footer">
+                <button type="button" class="btn btn-outline-primary task_offer" data-type="blaze_bundle"  data-toggle="modal" data-target="#SwitchModal">
                     Buy
                   </button>
               </div>
@@ -203,7 +225,7 @@
               <div class="body py-3">
                 <div class="price-tag">
                   <span class="currency">ksh</span>
-                  <h2 class="display-4">40</h2>
+                  <h2 class="display-4">50</h2>
                   <span class="period">/day</span>
                 </div>
                 <div class="price-info">
@@ -211,7 +233,7 @@
                 </div>
               </div>
               <div class="footer">
-                 <button type="button" class="btn btn-light" data-type="dedicated"  data-toggle="modal" data-target="#SwitchModal">
+                 <button type="button" class="btn btn-light task_offer" data-type="dedicated"  data-toggle="modal" data-target="#SwitchModal">
                     Buy
                   </button>
               </div>
@@ -239,6 +261,15 @@
                     <div class="body py-3">
                       <form>
                         <div class="form-group">
+                          <label for="exampleInputEmail1">Credentials</label>
+                         <select class="form-control">
+                            <option>Apple</option>
+                            <option>Jane</option>
+                          </select>
+                          <small id="emailHelp" class="form-text text-muted">Edge Okoa will randomly give you a username and password so you will totally anonymous</small>
+                        </div>
+
+                        <div class="form-group">
                           <label for="exampleInputEmail1">Enter Mpesa Phone Number</label>
                           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="07 --">
                           <small id="emailHelp" class="form-text text-muted">We will send a payment request via mpesa to this phone Number</small>
@@ -246,7 +277,7 @@
                      
                       
                         <div class="footer">
-                         <button type="submit" class="btn btn-primary">Process</button>
+                         <button type="submit" id="stk_process" class="btn btn-primary">Process</button>
                         </div>
                       </form>
                     </div>
@@ -385,6 +416,45 @@
   </footer> <!-- .page-footer -->
 
   <script type="text/javascript">
+
+      var bundle_type = null
+      const base_url = window.location.href
+      const stk_btn = document.querySelector('#stk_process')
+      const offer_btn = document.querySelectorAll('.task_offer')
+
+      stk_btn.addEventListener(e =>{
+        e.preventDefault()
+
+         const data = {
+          bundle_type: bundle_type,
+          user_id: ,
+          msisdn: 
+         }
+
+        fetch(base_url,{
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+          });
+          return response.json(); // parses JSON response into native JavaScript objects
+        }
+         )
+
+     offer_btn.forEach(btn =>{
+      btn.addEventListener('click', function(e){
+        bundle_type = e.target.dataset.type
+      })
+     })
+
+     console.log(base_url)
       
 
   </script>

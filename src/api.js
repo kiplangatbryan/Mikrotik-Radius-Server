@@ -30,8 +30,9 @@ exports.triggerWebPay = async (msisdn, amount) => {
       }
     );
     console.log(res.data);
+    return res.data
   } catch (err) {
-    console.log(err.response.data);
+    console.error(err.response.data);
   }
 };
 
