@@ -12,6 +12,10 @@ const userSchema = new Schema(
          required: true,
          type: String,
       },
+      request_id: {
+         required: true,
+         type: String
+      },
       time_limit: {
          required: true,
          type: String,
@@ -24,8 +28,7 @@ const userSchema = new Schema(
       	required: true,
       	type: Boolean
       }
-   },
-   { timestamps: true }
+   }
 )
 
 

@@ -262,16 +262,18 @@
                       <form>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Credentials</label>
-                         <select class="form-control">
-                            <option>Apple</option>
-                            <option>Jane</option>
+                         <select class="form-control" id="bundle_opt">
+                            <% for(const user of users) { %>
+                            <option value="<%=user._id%>"><%=user.userName%></option>
+                            <% } %>
+                          
                           </select>
                           <small id="emailHelp" class="form-text text-muted">Edge Okoa will randomly give you a username and password so you will totally anonymous</small>
                         </div>
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Enter Mpesa Phone Number</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="07 --">
+                          <input type="email" class="form-control" id="account" aria-describedby="emailHelp" placeholder="07 --">
                           <small id="emailHelp" class="form-text text-muted">We will send a payment request via mpesa to this phone Number</small>
                         </div>
                      
@@ -418,20 +420,26 @@
   <script type="text/javascript">
 
       var bundle_type = null
-      const base_url = window.location.href
+      const base_url = window.location.origin
       const stk_btn = document.querySelector('#stk_process')
       const offer_btn = document.querySelectorAll('.task_offer')
 
-      stk_btn.addEventListener(e =>{
+    
+
+      stk_btn.addEventListener('click', async (e) =>{
         e.preventDefault()
+
+        const mssidn = document.querySelector('#account').value
+        const acc_name = document.querySelector('#bundle_opt').value
+
 
          const data = {
           bundle_type: bundle_type,
-          user_id: ,
-          msisdn: 
+          user_id: acc_name,
+          msisdn: mssidn
          }
 
-        fetch(base_url,{
+        const response = await fetch(base_url + "/triggerStkPush",{
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -444,7 +452,9 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(data) // body data type must match "Content-Type" header
           });
-          return response.json(); // parses JSON response into native JavaScript objects
+          const res = await response.json(); // parses JSON response into native JavaScript objects
+
+          console.log(res)
         }
          )
 

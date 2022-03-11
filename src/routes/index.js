@@ -2,6 +2,9 @@ const router = require('express').Router()
 
 const User = require('../models/user')
 
+const assert = require('assert')
+
+const fs = require('fs')
 
 const bundle_offer = [
     {   
@@ -36,12 +39,18 @@ const bundle_offer = [
     }  
 ] 
 
-
 const { triggerWebPay, WebPayCb } = require('../api')
  
-router.get('/', (req, res)=>{
+router.get('/', async (req, res, next)=>{
 	console.log(req.query)
-	return res.render('index')
+
+	try {
+		const users = await User.find({leased: false})
+		return res.render('index', { users })
+	}
+	catch(err){
+		next(err)
+	}
 })
 
 router.post('/triggerStkPush', async (req, res) =>{
@@ -51,27 +60,22 @@ router.post('/triggerStkPush', async (req, res) =>{
 	// get the data
 	// format: bundle_type, msisdn
 
-	try {
 		const { bundle_type, user_id ,msisdn } = req.body
-	}
-	catch(err){
-		return res.status(405).json({ status: ['bad data supplied']})
-	}
-
+	
 	// check for waiting state
 	try {
 		const user = await User.findOne({ _id: user_id})
 
-		assert(user == false, 'check sth')
-
 		if (user.status == 'waiting') {
 			return res.status(304).json( {msg: 'waiting'})
 		}
+		console.log('user not found')
 	}
 
 	catch(err){
 		console.log('db failure/error')
 	}
+
 
 	const chosen_bundle = bundle_offer.filter((offer) =>{
 			if (offer.name == bundle_type){
@@ -80,20 +84,30 @@ router.post('/triggerStkPush', async (req, res) =>{
 			return false
 		})
 
-		assert(chosen_bundle.length != 1, 'something is wrong!')
+
+		assert(chosen_bundle.length == 1, 'something is wrong!')
 
 
 	// change state to ['waiting']
 
 	const res_data = await triggerWebPay(msisdn, chosen_bundle[0].value)
 
-	const user = await User.findOne({ _id: user_id})
+	try {
+		const user = await User.findOne({_id: user_id})
+		user.status = 'waiting'
+		user.request_id = res_data.request_id
 
-	user.state = 'waiting'
+		await user.save()
 
-	await user.save()
+		return res.status(200).json({msg: "waiting", status: "success"})
 
-	return res.status(200).json({msg: "waiting", status: "success"})
+	}
+
+	catch(err) {
+		console.log(err)
+	}
+
+	
 
 })
 

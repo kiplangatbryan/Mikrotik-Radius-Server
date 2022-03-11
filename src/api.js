@@ -10,8 +10,6 @@ dotenv.config({ path: path.join(__dirname, "../config/config.env") });
 
 exports.triggerWebPay = async (msisdn, amount) => {
 
-  console.log(msisdn, amount)
-
   const params = new URLSearchParams()
   params.append('amount', amount)
   params.append('msisdn', msisdn)
