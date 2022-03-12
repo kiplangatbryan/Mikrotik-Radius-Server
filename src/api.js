@@ -38,12 +38,10 @@ exports.triggerWebPay = async (msisdn, amount) => {
 
 exports.WebPayCb =  async (req, res) => {
 
+  const result = JSON.parse(req.body)
 
 
-  const { StkCallback } = req.body.Body
-
-
-  console.log(StkCallback)
+  console.log(result)
 
   const user = await User.findOne({request_id: StkCallback.TinyPesaID})
 
