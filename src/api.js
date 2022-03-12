@@ -40,9 +40,9 @@ exports.WebPayCb =  async (req, res) => {
   console.log(prettyjson.render(req.body));
 
 
-  const { stkCallback } = req.body
+  const { StkCallback } = req.body.Body
 
-  const user = await User.findOne({request_id: stkCallback.TinyPesaID})
+  const user = await User.findOne({request_id: StkCallback.TinyPesaID})
 
  
   if (stkCallback.ResultCode == 0) {
