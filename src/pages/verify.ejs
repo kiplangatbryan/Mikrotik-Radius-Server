@@ -122,6 +122,7 @@
       const base_url = window.location.origin
       const request_id = document.querySelector('#request_id').dataset.id
       const action_btn = document.querySelector('#task_offer')
+      const status_update = document.querySelector('.status-update')
 
       
         function checkStatus() {
@@ -141,9 +142,10 @@
                       const res = await response.json(); // parses JSON response into native JavaScript objects
 
                       if (res.status == 'confirmed') {
-                         action_btn.textContent = 'confirmed'
-                        // window.location.href = window.location.href + 'verify?request_id=' + res.request_id
-                      }
+                          action_btn.textContent = 'confirmed'
+                          status_update.textContent = '.........'
+                          // window.location.replace(window.location.href + 'verify?request_id=' + res.request_id)
+                      } 
                       else{
                         // continue spinning
                         checkStatus()
