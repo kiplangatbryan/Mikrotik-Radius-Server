@@ -50,9 +50,6 @@ exports.WebPayCb =  async (req, res) => {
     // success
     user.status = 'paid'
   }
-  else{
-    user.status = 'failed'
-  }
 
   await user.save()
 
@@ -68,10 +65,21 @@ exports.WebPayCb =  async (req, res) => {
 
 
 exports.DataReset = new CronJob(
-  "*/1 * * * * *", // Run every 10 secs
+  "*/5 * * * * *", // Run every 10 secs
   async function () {
   //  should run every 5 minutes
-  
-
+      // check if session time has exceeded
+      User.updateMany({}, { }, { multi: true }, (err, model)=>{})
   }
 );
+
+
+const customDate = function(hrs) {
+    return new Date(Date.now() + (hrs * (60*60*1000)))
+}
+
+const currentTime = function() {
+  return new Date(Date.now())
+}
+
+module.exports = customDate

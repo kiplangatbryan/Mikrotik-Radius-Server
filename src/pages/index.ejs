@@ -63,7 +63,7 @@
       <div class="container h-100">
         <div class="row align-items-center h-100">
           <div class="col-lg-6 py-3 wow fadeInUp">
-            <h1 class="mb-4">Hapa Ndo Baze Get Browsing with fast Internet Now</h1>
+            <h1 class="mb-4">Get Browsing with fast Internet Now</h1>
             <p class="text-lg mb-5">Ignite your innner creativity passion online Now </p>
 
             <a href="#pricing" class="btn btn-primary border text-white">Checki Bundles</a>
@@ -88,7 +88,7 @@
       <div class="container">
         <div class="text-center wow fadeInUp">
           <h2 class="title-section">Pricing Plans</h2>
-          <p class="text-center text-lg">Get your self access to <span class="text-info">Unlimited</span> browsing JUST.DE.WAY.YOU.LIKE at the confort of your pocket</p>
+          <p class="text-center text-lg">Get your self access to <span class="text-info">Unlimited</span> browsing, streaming gaming you name it at the confort of your pocket</p>
           <div class="divider mx-auto"></div>
         </div>
   
@@ -98,7 +98,7 @@
             <div class="card-pricing">
               <div class="header">
                 <div class="price-icon"><span class="mai-home-outline"></span></div>
-                <div class="price-title">Okoa Bundle</div>
+                <div class="price-title">Salama Bundle</div>
               </div>
               <div class="body py-3">
                 <div class="price-tag">
@@ -259,7 +259,7 @@
                       <div class="price-title" id="bundle_type">EAsy Pay</div>
                     </div>
                     <div class="body py-3">
-                      <form>
+                      <form name="acctribe">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Credentials</label>
                          <select class="form-control" id="bundle_opt">
@@ -268,12 +268,12 @@
                             <% } %>
                           
                           </select>
-                          <small id="emailHelp" class="form-text text-muted">Edge Okoa will randomly give you a username and password so you will totally anonymous</small>
+                          <small id="emailHelp" class="form-text text-muted">We will randomly give you a username and password so you will dont need to cram anything everything is on us</small>
                         </div>
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Enter Mpesa Phone Number</label>
-                          <input type="email" class="form-control" id="account" aria-describedby="emailHelp" placeholder="07 --">
+                          <input type="email" name="phone" class="form-control" id="account" aria-describedby="emailHelp" minlength="10" maxlength="10" required placeholder="07 --">
                           <small id="emailHelp" class="form-text text-muted">We will send a payment request via mpesa to this phone Number</small>
                         </div>
                      
@@ -413,11 +413,14 @@
 
   <script type="text/javascript">
 
+      document.acctribe.phone.focus()
+
       var bundle_type = null
       const base_url = window.location.origin
       const stk_btn = document.querySelector('#stk_process')
       const offer_btn = document.querySelectorAll('.task_offer')
       const modal_tt = document.querySelector('#bundle_type')
+
     
 
       stk_btn.addEventListener('click', async (e) =>{

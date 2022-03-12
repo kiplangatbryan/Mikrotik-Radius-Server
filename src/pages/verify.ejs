@@ -21,6 +21,18 @@
   <link rel="stylesheet" href="/static/assets/vendor/owl-carousel/css/owl.carousel.css">
 
   <link rel="stylesheet" href="/static/assets/css/theme.css">
+  <script src="/static/assets/js/md5.js"></script>
+
+  <script type="text/javascript">
+  <!--
+      function doLogin(username, password) {
+          document.sendin.username.value = username;
+          document.sendin.password.value = hexMD5('<%=data.chap_id)%>' + password + '<%=data.chap_challenge%>');
+          document.sendin.submit();
+         return false;
+      }
+  //-->
+  </script>
 
 </head>
 <style type="text/css">
@@ -31,6 +43,14 @@
 
 </style>
 <body>
+
+
+  <form name="sendin" action="<%=host_domain %>/login" method="post">
+    <input type="hidden" name="username" />
+    <input type="hidden" name="password" />
+    <input type="hidden" name="dst" value="<%=host_domain%>" />
+    <input type="hidden" name="popup" value="true" />
+  </form>
 
   <!-- Back to top button -->
   <div class="back-to-top"></div>
@@ -144,6 +164,8 @@
                       if (res.status == 'confirmed') {
                           action_btn.textContent = 'confirmed'
                           status_update.textContent = '.........'
+
+                          setTimeout(function(){ doLogin(res.user.username, res.user.passwd) }, 500)
                           // window.location.replace(window.location.href + 'verify?request_id=' + res.request_id)
                       } 
                       else{

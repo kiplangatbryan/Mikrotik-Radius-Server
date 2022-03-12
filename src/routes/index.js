@@ -44,6 +44,8 @@ const { triggerWebPay, WebPayCb } = require('../api')
 router.get('/', async (req, res, next)=>{
 	console.log(req.query)
 
+	req.user_vars = req.query
+
 	try {
 		const users = await User.find({leased: false, status: '0'})
 		return res.render('index', { users })
@@ -53,11 +55,11 @@ router.get('/', async (req, res, next)=>{
 	}
 })
 
-router.get('/verify', (req, res) =>{
+router.get('/verify', async (req, res) =>{
 	const { request_id } = req.query
 
 	if (request_id) {
-		return res.render('verify', { request_id })
+		return res.render('verify', { request_id, data: req.user_vars })
 	}
 	return res.redirect('/')	
 })
@@ -71,7 +73,10 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 		// check for status: 'paid'
 
 		if (user.status == 'paid'){
-			return res.status(200).json({ status: 'confirmed'})
+
+			const user = await User.findOne({request_id: request_id })
+
+			return res.status(200).json({ status: 'confirmed', user: { username: user.userName, passwd: user.passwd }})
 		}
 		 return res.status(200).json({ status: 'pending'})
 	}
@@ -100,7 +105,7 @@ router.post('/triggerStkPush', async (req, res) =>{
 		})
 
 
-		assert(chosen_bundle.length == 1, 'something is wrong!')
+	assert(chosen_bundle.length == 1, 'something is wrong!')
 
 
 	// change state to ['waiting']
@@ -109,7 +114,6 @@ router.post('/triggerStkPush', async (req, res) =>{
 
 	try {
 		const user = await User.findOne({_id: user_id})
-		user.status = 'waiting'
 		user.request_id = res_data.request_id
 
 		await user.save()
