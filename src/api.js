@@ -42,21 +42,19 @@ exports.WebPayCb =  async (req, res) => {
 
  const { stkCallback } = req.body.Body
   
- console.table(stkCallback)
 
-
-  // const user = await User.findOne({request_id: stkCallback.TinyPesaID})
+  const user = await User.findOne({request_id: stkCallback.TinyPesaID})
 
  
-  // if (stkCallback.ResultCode == 0) {
-  //   // success
-  //   user.status = 'paid'
-  // }
-  // else{
-  //   user.status = 'failed'
-  // }
+  if (stkCallback.ResultCode == 0) {
+    // success
+    user.status = 'paid'
+  }
+  else{
+    user.status = 'failed'
+  }
 
-  // await user.save()
+  await user.save()
 
   
   let message = {
