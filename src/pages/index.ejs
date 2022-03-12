@@ -256,7 +256,7 @@
                   <div class="">
                     <div class="header">
                       <div class="price-icon"><span class="mai-build-outline"></span></div>
-                      <div class="price-title">EAsy Pay</div>
+                      <div class="price-title" id="bundle_type">EAsy Pay</div>
                     </div>
                     <div class="body py-3">
                       <form>
@@ -279,7 +279,7 @@
                      
                       
                         <div class="footer">
-                         <button type="submit" id="stk_process" class="btn btn-primary">Process</button>
+                         <button type="submit" id="stk_process" class="btn btn-primary">Make Payment</button>
                         </div>
                       </form>
                     </div>
@@ -376,18 +376,12 @@
           <h5>Quick Links</h5>
           <ul class="footer-menu">
             <li><a href="#">How it works</a></li>
-            <li><a href="#">Security</a></li>
+            <li><a href="#">Contact</a></li>
             <li><a href="#">Pricing</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">Report a Bug</a></li>
           </ul>
         </div>
        
         <div class="col-lg-3 py-3">
-          <h5>Subscribe</h5>
-          <form action="#">
-            <input type="text" class="form-control" placeholder="Enter your mail..">
-          </form>
 
           <div class="sosmed-button mt-4">
             <a href="#"><span class="mai-logo-facebook-f"></span></a>
@@ -423,11 +417,12 @@
       const base_url = window.location.origin
       const stk_btn = document.querySelector('#stk_process')
       const offer_btn = document.querySelectorAll('.task_offer')
-
+      const modal_tt = document.querySelector('#bundle_type')
     
 
       stk_btn.addEventListener('click', async (e) =>{
         e.preventDefault()
+        e.target.textContent = 'processing'
 
         const mssidn = document.querySelector('#account').value
         const acc_name = document.querySelector('#bundle_opt').value
@@ -454,6 +449,11 @@
           });
           const res = await response.json(); // parses JSON response into native JavaScript objects
 
+          if (res.status == 'success') {
+             e.target.text = 'success'
+             window.location.replace(window.location.href + '/verify?request_id=' + res.request_id)
+          }
+
           console.log(res)
         }
          )
@@ -461,6 +461,7 @@
      offer_btn.forEach(btn =>{
       btn.addEventListener('click', function(e){
         bundle_type = e.target.dataset.type
+        modal_tt.text = bundle_type
       })
      })
 

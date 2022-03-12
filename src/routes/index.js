@@ -53,6 +53,11 @@ router.get('/', async (req, res, next)=>{
 	}
 })
 
+router.get('/verify', (req, res) =>{
+	console.log(req.query)
+	return res.render('verify')
+})
+
 router.post('/triggerStkPush', async (req, res) =>{
 
 	// validate
@@ -63,19 +68,6 @@ router.post('/triggerStkPush', async (req, res) =>{
 		const { bundle_type, user_id ,msisdn } = req.body
 	
 	// check for waiting state
-	try {
-		const user = await User.findOne({ _id: user_id})
-
-		if (user.status == 'waiting') {
-			return res.status(304).json( {msg: 'waiting'})
-		}
-		console.log('user not found')
-	}
-
-	catch(err){
-		console.log('db failure/error')
-	}
-
 
 	const chosen_bundle = bundle_offer.filter((offer) =>{
 			if (offer.name == bundle_type){
@@ -99,7 +91,7 @@ router.post('/triggerStkPush', async (req, res) =>{
 
 		await user.save()
 
-		return res.status(200).json({msg: "waiting", status: "success"})
+		return res.status(200).json({msg: "waiting", status: "success", request_id: res_data.request_id})
 
 	}
 

@@ -50,7 +50,6 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
     db()
-
      console.log(`drive\'s are fired! on port ${PORT}`)
 });
 
