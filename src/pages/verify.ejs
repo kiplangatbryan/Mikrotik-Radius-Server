@@ -35,27 +35,31 @@
   <!-- Back to top button -->
   <div class="back-to-top"></div>
 
-  <div class="container h-100">
+  <div class="h-100">
     <div class="row justify-content-center">
-       <div class="col-12 col-lg-auto py-3 wow fadeInLeft">
+       <div class="col-6 col-lg-auto py-3 wow fadeInLeft">
             <div class="card-pricing">
               <div class="header">
                 <div class="price-icon"><span class="mai-danger-outline"></span></div>
-                <div class="price-title">We are verifying</div>
+                
               </div>
               <div class="body py-3">
-                <div class="price-tag">
-                  <span class="currency">ksh</span>
-                  <h2 class="display-4">40</h2>
-                  <span class="period"></span>
+                <div class="py-2">
+                    <img style="object-fit: cover;max-width: 100%;" src="/static/assets/img/bg_image_2.png">
                 </div>
-                <div class="price-info">
-                  <p>Unlimited browsing for <span class="text-info">12 hrs</span></p>
+                <div class="price-info py-2" >
+                  <p>We are checking for receipt of payment</p>
+                </div>
+                <div data-id="<%=request_id%>" id='request_id'></div>
+                <div class="status-update">
+                   <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
               </div>
               <div class="footer">
-                <button type="button" class="btn btn-outline-primary task_offer" data-type="blaze_bundle"  data-toggle="modal" data-target="#SwitchModal">
-                    Buy
+                <button type="button"  disabled=true class="btn btn-outline-primary task_offer" data-type="blaze_bundle"  data-toggle="modal" data-target="#SwitchModal">
+                    Verifying ...
                   </button>
               </div>
             </div>
@@ -103,7 +107,7 @@
         </div>
         <div class="col-sm-6 py-2 text-right">
           <div class="d-inline-block px-3">
-            <a href="#">Login</a>
+            <a href="#">Pricing</a>
           </div>
           <div class="d-inline-block px-3">
             <a href="#">Contact Us</a>
@@ -116,55 +120,41 @@
   <script type="text/javascript">
 
       const base_url = window.location.origin
-    
-    
+      const request_id = document.querySelector('#request_id').dataset.id
+      const action_btn = document.querySelector('#task_offer')
 
-      stk_btn.addEventListener('click', async (e) =>{
-        e.preventDefault()
-        e.target.text = 'processing'
+      
+        function checkStatus() {
+                setTimeout(async function(){
+                   const response = await fetch(base_url + "/verifyTransac/" + request_id,{
+                        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                        mode: 'cors', // no-cors, *cors, same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                          'Content-Type': 'application/json'
+                          // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                      });
+                      const res = await response.json(); // parses JSON response into native JavaScript objects
 
-        const mssidn = document.querySelector('#account').value
-        const acc_name = document.querySelector('#bundle_opt').value
-
-
-         const data = {
-          bundle_type: bundle_type,
-          user_id: acc_name,
-          msisdn: mssidn
-         }
-
-        const response = await fetch(base_url + "/triggerStkPush",{
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-              'Content-Type': 'application/json'
-              // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify(data) // body data type must match "Content-Type" header
-          });
-          const res = await response.json(); // parses JSON response into native JavaScript objects
-
-          if (res.status == 'success') {
-             e.target.text = 'success'
-            window.location.href = window.location.href + 'verify?request_id=' + res.request_id
-          }
-
-          console.log(res)
+                      if (res.status == 'confirmed') {
+                         action_btn.textContent = 'confirmed'
+                        // window.location.href = window.location.href + 'verify?request_id=' + res.request_id
+                      }
+                      else{
+                        // continue spinning
+                        checkStatus()
+                      }
+              },4000)
         }
-         )
 
-     offer_btn.forEach(btn =>{
-      btn.addEventListener('click', function(e){
-        bundle_type = e.target.dataset.type
-        modal_tt.text = bundle_type
-      })
-     })
+        checkStatus()
+       
+    
 
-     console.log(base_url)
       
 
   </script>

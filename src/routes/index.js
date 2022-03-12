@@ -45,7 +45,7 @@ router.get('/', async (req, res, next)=>{
 	console.log(req.query)
 
 	try {
-		const users = await User.find({leased: false})
+		const users = await User.find({leased: false, status: '0'})
 		return res.render('index', { users })
 	}
 	catch(err){
@@ -54,8 +54,31 @@ router.get('/', async (req, res, next)=>{
 })
 
 router.get('/verify', (req, res) =>{
-	console.log(req.query)
-	return res.render('verify')
+	const { request_id } = req.query
+
+	if (request_id) {
+		return res.render('verify', { request_id })
+	}
+	return res.redirect('/')	
+})
+
+router.get('/verifyTransac/:request_id',async (req, res) =>{
+	const { request_id } = req.params
+
+	try{
+		const user = await User.findOne({request_id: request_id, leased: false })
+
+		// check for status: 'paid'
+
+		if (user.status == 'paid'){
+			return res.status(200).json({ status: 'confirmed'})
+		}
+		 return res.status(200).json({ status: 'pending'})
+	}
+	catch(err) {
+		console.error(err)
+	}
+
 })
 
 router.post('/triggerStkPush', async (req, res) =>{
@@ -104,7 +127,7 @@ router.post('/triggerStkPush', async (req, res) =>{
 })
 
 // handle transaction from tinypesa
-router.post('/callback', WebPayCb)
+router.post('/stkCallback', WebPayCb)
 
 
 

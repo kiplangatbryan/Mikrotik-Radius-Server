@@ -4,6 +4,8 @@ const path = require("path");
 const moment = require("moment");
 const prettyjson = require('prettyjson');
 
+const User = require('./models/user')
+
 dotenv.config({ path: path.join(__dirname, "../config/config.env") });
 
 
@@ -34,12 +36,26 @@ exports.triggerWebPay = async (msisdn, amount) => {
   }
 };
 
-exports.WebPayCb =  (req, res) => {
-  console.log('-----------Received M-Pesa webhook-----------');
- 
+exports.WebPayCb =  async (req, res) => {
   console.log(prettyjson.render(req.body));
-  console.log('-----------------------');
 
+
+  const { stkCallback } = req.body
+
+  const user = await User.findOne({request_id: stkCallback.TinyPesaID})
+
+ 
+  if (stkCallback.ResultCode == 0) {
+    // success
+    user.status = 'paid'
+  }
+  else{
+    user.status = 'failed'
+  }
+
+  await user.save()
+
+  
   let message = {
 	  "ResponseCode": "00000000",
 	  "ResponseDesc": "success"

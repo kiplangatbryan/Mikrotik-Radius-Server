@@ -422,7 +422,7 @@
 
       stk_btn.addEventListener('click', async (e) =>{
         e.preventDefault()
-        stk_btn.textContent = 'processing'
+        stk_btn.innerHtml = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...'
 
         const mssidn = document.querySelector('#account').value
         const acc_name = document.querySelector('#bundle_opt').value
