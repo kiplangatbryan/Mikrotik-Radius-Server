@@ -422,7 +422,7 @@
 
       stk_btn.addEventListener('click', async (e) =>{
         e.preventDefault()
-        e.target.textContent = 'processing'
+        stk_btn.textContent = 'processing'
 
         const mssidn = document.querySelector('#account').value
         const acc_name = document.querySelector('#bundle_opt').value
@@ -450,7 +450,7 @@
           const res = await response.json(); // parses JSON response into native JavaScript objects
 
           if (res.status == 'success') {
-             e.target.text = 'success'
+             stk_btn.textContent = 'success'
              window.location.replace(window.location.href + '/verify?request_id=' + res.request_id)
           }
 
