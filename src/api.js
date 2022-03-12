@@ -2,7 +2,7 @@ const axios = require("axios");
 const dotenv = require("dotenv");
 const path = require("path");
 const moment = require("moment");
-const prettyjson = require('prettyjson');
+const CronJob = require("cron").CronJob;
 
 const User = require('./models/user')
 
@@ -38,23 +38,23 @@ exports.triggerWebPay = async (msisdn, amount) => {
 
 exports.WebPayCb =  async (req, res) => {
 
-  const result = JSON.parse(req.body)
 
-  const { StkCallback } = result.Body
+ console.table(req.body)
+  
 
 
-  const user = await User.findOne({request_id: StkCallback.TinyPesaID})
+  // const user = await User.findOne({request_id: StkCallback.TinyPesaID})
 
  
-  if (stkCallback.ResultCode == 0) {
-    // success
-    user.status = 'paid'
-  }
-  else{
-    user.status = 'failed'
-  }
+  // if (stkCallback.ResultCode == 0) {
+  //   // success
+  //   user.status = 'paid'
+  // }
+  // else{
+  //   user.status = 'failed'
+  // }
 
-  await user.save()
+  // await user.save()
 
   
   let message = {
@@ -65,3 +65,13 @@ exports.WebPayCb =  async (req, res) => {
   res.status(200).json(message)
 
 }
+
+
+exports.DataReset = new CronJob(
+  "*/1 * * * * *", // Run every 10 secs
+  async function () {
+  //  should run every 5 minutes
+  
+
+  }
+);
