@@ -37,7 +37,7 @@ exports.triggerWebPay = async (msisdn, amount) => {
 };
 
 exports.WebPayCb =  async (req, res) => {
-  console.log(prettyjson.render(req.body));
+  console.log(req.body);
 
 
   const { StkCallback } = req.body.Body
