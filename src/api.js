@@ -40,8 +40,8 @@ exports.WebPayCb =  async (req, res) => {
 
   const result = JSON.parse(req.body)
 
+  const { StkCallback } = result.Body
 
-  console.log(result)
 
   const user = await User.findOne({request_id: StkCallback.TinyPesaID})
 
