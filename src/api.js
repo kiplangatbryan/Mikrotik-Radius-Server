@@ -64,14 +64,14 @@ exports.WebPayCb =  async (req, res) => {
 }
 
 
-exports.DataReset = new CronJob(
-  "*/5 * * * * *", // Run every 10 secs
-  async function () {
-  //  should run every 5 minutes
-      // check if session time has exceeded
-      User.updateMany({}, { }, { multi: true }, (err, model)=>{})
-  }
-);
+// exports.DataReset = new CronJob(
+//   "*/5 * * * * *", // Run every 10 secs
+//   async function () {
+//   //  should run every 5 minutes
+//       // check if session time has exceeded
+//       User.updateMany({}, { }, { multi: true }, (err, model)=>{})
+//   }
+// );
 
 
 const customDate = function(hrs) {
