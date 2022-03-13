@@ -45,7 +45,7 @@ router.get('/', async (req, res, next)=>{
 
 	try {
 		const users = await User.find({leased: false, status: '0'})
-		return res.render('index', { users, user_data: JSON.stringify({username: "james"})})
+		return res.render('index', { users, user_data: JSON.stringify(req.query)})
 	}
 	catch(err){
 		next(err)
@@ -54,6 +54,8 @@ router.get('/', async (req, res, next)=>{
 
 router.get('/verify',  (req, res) =>{
 	const { request_id } = req.query
+
+	console.table(req.query)
 
 	if (request_id) {
 		return res.render('verify', req.query)
