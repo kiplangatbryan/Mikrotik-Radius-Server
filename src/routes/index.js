@@ -42,24 +42,21 @@ const bundle_offer = [
 const { triggerWebPay, WebPayCb } = require('../api')
  
 router.get('/', async (req, res, next)=>{
-	console.log(req.query)
-
-	req.user_vars = req.query
 
 	try {
 		const users = await User.find({leased: false, status: '0'})
-		return res.render('index', { users })
+		return res.render('index', { users, user_data: JSON.stringify({username: "james"})})
 	}
 	catch(err){
 		next(err)
 	}
 })
 
-router.get('/verify', async (req, res) =>{
+router.get('/verify',  (req, res) =>{
 	const { request_id } = req.query
 
 	if (request_id) {
-		return res.render('verify', { request_id, data: req.user_vars })
+		return res.render('verify', req.query)
 	}
 	return res.redirect('/')	
 })

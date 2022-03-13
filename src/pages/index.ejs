@@ -416,6 +416,9 @@
       document.acctribe.phone.focus()
 
       var bundle_type = null
+
+      const user_data = <%-user_data%>
+
       const base_url = window.location.origin
       const stk_btn = document.querySelector('#stk_process')
       const offer_btn = document.querySelectorAll('.task_offer')
@@ -454,7 +457,14 @@
 
           if (res.status == 'success') {
              stk_btn.textContent = 'success'
-             window.location.replace(window.location.href + 'verify?request_id=' + res.request_id)
+
+             let added_vars = ""
+
+             for (const key in user_data) {
+                added_vars += `&${key}=${user_data[key]}`
+             }
+
+             window.location.href = base_url + '/verify?request_id=' + res.request_id + added_vars
           }
 
           console.log(res)

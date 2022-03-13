@@ -27,7 +27,7 @@
   <!--
       function doLogin(username, password) {
           document.sendin.username.value = username;
-          document.sendin.password.value = hexMD5('<%=data.chap_id)%>' + password + '<%=data.chap_challenge%>');
+          document.sendin.password.value = hexMD5('<%=chap_id)%>' + password + '<%=chap_challenge%>');
           document.sendin.submit();
          return false;
       }
@@ -45,7 +45,7 @@
 <body>
 
 
-  <form name="sendin" action="<%=host_domain %>/login" method="post">
+  <form name="sendin" action="<%=host_domain %>" method="post">
     <input type="hidden" name="username" />
     <input type="hidden" name="password" />
     <input type="hidden" name="dst" value="<%=host_domain%>" />
