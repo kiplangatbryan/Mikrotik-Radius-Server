@@ -52,6 +52,13 @@ router.get('/', async (req, res, next)=>{
 	}
 })
 
+
+router.get('/accounts',async  (req, res) =>{
+	const users = await User.find({leased: false, status: '0'})
+
+	return res.status(200).json({users})
+})
+
 router.get('/verify',  (req, res) =>{
 	const { request_id } = req.query
 
@@ -74,6 +81,10 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 		if (user.status == 'paid'){
 
 			const user = await User.findOne({request_id: request_id })
+
+			user.leased = true
+			await user.save()
+
 
 			return res.status(200).json({ status: 'confirmed', user: { username: user.userName, passwd: user.passwd }})
 		}
