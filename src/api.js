@@ -29,7 +29,6 @@ exports.triggerWebPay = async (msisdn, amount) => {
         },
       }
     );
-    console.log(res.data);
     return res.data
   } catch (err) {
     console.error(err.response.data);
@@ -71,7 +70,6 @@ exports.DataReset = new CronJob(
       // check if session time has exceeded
       User.updateMany({$and: [{ status: "paid" }, { $and: [{time_limit: {$ne: '0'}}, { time_limit: {$lt: currentTime() }}]}]}, { status: '0', time_limit: '0', leased: false }, { multi: true }, (err, doc)=>{
         if (err) { console.log(err) }else{
-          console.log('success ---')
         }
 
       })
