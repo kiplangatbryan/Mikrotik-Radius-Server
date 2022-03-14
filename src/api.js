@@ -68,7 +68,7 @@ exports.DataReset = new CronJob(
   function () {
   //  should run every 5 minutes
       // check if session time has exceeded
-      User.updateMany({$and: [{ status: "paid" }, { status: '0', time_limit: '0', leased: false }, { multi: true }, (err, doc)=>{
+      User.updateMany({ status: "paid" }, { status: '0', time_limit: '0', leased: false }, { multi: true }, (err, doc)=>{
         if (err) { console.log(err) }else{
         }
 
