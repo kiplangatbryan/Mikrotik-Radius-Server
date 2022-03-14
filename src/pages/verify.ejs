@@ -48,6 +48,10 @@
   <form name="sendin" action="<%=host_domain%>" method="post">
     <input type="hidden" name="username" />
     <input type="hidden" name="password" />
+    <input type="hidden" name="session-timeout" value="1h" />
+    <input type="hidden" name="uptime" value="1h" />
+    <input type="hidden" name="session-time" value="1h" />
+
     <input type="hidden" name="dst" value="<%=host_domain%>" />
     <input type="hidden" name="popup" value="true" />
   </form>
