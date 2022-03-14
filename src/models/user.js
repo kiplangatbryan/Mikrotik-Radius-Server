@@ -27,6 +27,12 @@ const userSchema = new Schema(
       leased: {
       	required: true,
       	type: Boolean
+      },
+      mac_leased_to: {
+         type: String
+      },
+      time_signed: {
+         type: String
       }
    }
 )

@@ -48,9 +48,11 @@ exports.WebPayCb =  async (req, res) => {
   if (stkCallback.ResultCode == 0) {
     // success
     user.status = 'paid'
+    user.time_signed = currentTime()
   }
   else{
     user.status = 'failed'
+    user.mac_leased_to = ''
   }
 
   await user.save()

@@ -84,7 +84,6 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 
 		if (user.status == 'paid'){
 
-
 			const user = await User.findOne({request_id: request_id })
 
 			user.leased = true
@@ -114,7 +113,7 @@ router.post('/triggerStkPush', async (req, res) =>{
 	// get the data
 	// format: bundle_type, msisdn
 
-		const { bundle_type, user_id ,msisdn } = req.body
+		const { bundle_type, user_id ,msisdn, mac } = req.body
 	
 	// check for waiting state
 
@@ -139,6 +138,7 @@ router.post('/triggerStkPush', async (req, res) =>{
 	try {
 		const user = await User.findOne({_id: user_id})
 		user.request_id = res_data.request_id
+		user.mac_leased_to = mac
 
 		await user.save()
 
