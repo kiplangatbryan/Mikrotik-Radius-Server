@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 const my_routes = require('./routes')
 const { db } = require('./db')
-
+const { DataReset } = require('./api')
 
 
 const PORT = process.env.PORT || 3000 
@@ -51,6 +51,8 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
     db()
+
+    DataReset.start()
      console.log(`drive\'s are fired! on port ${PORT}`)
 });
 

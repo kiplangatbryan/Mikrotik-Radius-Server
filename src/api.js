@@ -66,10 +66,15 @@ exports.WebPayCb =  async (req, res) => {
 
 exports.DataReset = new CronJob(
   "*/5 * * * * *", // Run every 10 secs
-  async function () {
+  function () {
   //  should run every 5 minutes
       // check if session time has exceeded
-      // User.updateMany({}, { }, { multi: true }, (err, model)=>{})
+      User.updateMany({ status: "waiting" }, { status: '0' }, { multi: true }, (err, doc)=>{
+        if (err) { console.log(err) }else{
+          console.log('success')
+        }
+
+      })
   }
 );
 
