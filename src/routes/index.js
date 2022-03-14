@@ -20,21 +20,21 @@ const bundle_offer = [
     { 
         name: 'jenga_bundle', 
         value: 20, 
-        limit: 4
+        limit: 5
     }, 
     { 
         name: 'fire_bundle', 
-        value: 30, 
-        limit: 6
+        value: 25, 
+        limit: 7
     }, 
     { 
         name: 'blaze_bundle', 
-        value: 40, 
+        value: 30, 
         limit: 12
     },
     { 
         name: 'dedicated', 
-        value: 50, 
+        value: 40, 
         limit: 24
     }  
 ] 
