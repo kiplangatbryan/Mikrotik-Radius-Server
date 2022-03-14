@@ -106,6 +106,33 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 
 })
 
+router.get('/StalePayment/:mac_addr',async (req, res) =>{
+
+	const {mac_addr} = req.params
+
+	const user = await User.finOne({ mac_leased_to: mac_addr})
+
+	if (!user) {
+		return res.json({status: 'failed'})
+	}
+
+	const chosen_bundle = bundle_offer.filter((offer) =>{
+			if (offer.name == user.time_limit){
+				return true
+			}
+			return false
+		})
+
+	if (customDate(user.time_signed, chosen_bundle.limit) > new Date(Date.now())){
+		return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
+	}
+	return res.json({status: 'failed'})
+
+
+
+
+})
+
 router.post('/triggerStkPush', async (req, res) =>{
 
 	// validate
@@ -158,5 +185,9 @@ router.post('/triggerStkPush', async (req, res) =>{
 router.post('/stkCallback', WebPayCb)
 
 
+
+const customDate = function(date, hrs) {
+    return new Date(date + (hrs * (60*60*1000)))
+}
 
 module.exports = router
