@@ -50,7 +50,7 @@ exports.WebPayCb =  async (req, res) => {
     user.status = 'paid'
   }
   else{
-    user.status = '0'
+    user.status = 'failed'
   }
 
   await user.save()
@@ -71,7 +71,7 @@ exports.DataReset = new CronJob(
   function () {
   //  should run every 5 minutes
       // check if session time has exceeded
-      User.updateMany({ status: "paid" }, { status: '0', leased: false }, { multi: true }, (err, doc)=>{
+      User.updateMany({$or: [{ status: "paid", status: 'failed' }]}, { status: '0', leased: false, request_id: '' }, { multi: true }, (err, doc)=>{
         if (err) { console.log(err) }else{
         }
 

@@ -84,7 +84,6 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 
 		if (user.status == 'paid'){
 
-			console.log('paid')
 
 			const user = await User.findOne({request_id: request_id })
 
@@ -94,7 +93,13 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 
 			return res.status(200).json({ status: 'confirmed', user: { username: user.userName, passwd: user.passwd }})
 		}
+		if (user.status == 'failed') {
+				return res.status(200).json({ status: 'failed')
+			}
+
 		 return res.status(200).json({ status: 'pending'})
+	
+		}
 	}
 	catch(err) {
 		console.error(err)
