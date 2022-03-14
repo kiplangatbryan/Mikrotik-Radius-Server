@@ -49,6 +49,9 @@ exports.WebPayCb =  async (req, res) => {
     // success
     user.status = 'paid'
   }
+  else{
+    user.status = '0'
+  }
 
   await user.save()
 
