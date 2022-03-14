@@ -107,6 +107,9 @@ router.post('/triggerStkPush', async (req, res) =>{
 	
 	// check for waiting state
 
+
+	console.table(req.body)
+
 	const chosen_bundle = bundle_offer.filter((offer) =>{
 			if (offer.name == bundle_type){
 				return true
