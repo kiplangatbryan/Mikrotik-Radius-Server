@@ -82,6 +82,8 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 
 		if (user.status == 'paid'){
 
+			console.log('paid')
+
 			const user = await User.findOne({request_id: request_id })
 
 			user.leased = true
