@@ -75,9 +75,6 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 
 			const user = await User.findOne({request_id: request_id })
 
-
-			console.log(user)
- 
 			return res.status(200).json({ status: 'confirmed', user: { username: user.userName, passwd: user.passwd }})
 		}
 		 return res.status(200).json({ status: 'pending'})

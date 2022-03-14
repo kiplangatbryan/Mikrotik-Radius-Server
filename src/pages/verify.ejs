@@ -141,7 +141,7 @@
 
       const base_url = window.location.origin
       const request_id = document.querySelector('#request_id').dataset.id
-      const action_btn = document.querySelector('#task_offer')
+      const action_btn = document.querySelector('.task_offer')
       const status_update = document.querySelector('.status-update')
 
       
@@ -160,6 +160,8 @@
                         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
                       });
                       const res = await response.json(); // parses JSON response into native JavaScript objects
+
+                      console.log(res)
 
                       if (res.status == 'confirmed') {
                           action_btn.textContent = 'confirmed'
