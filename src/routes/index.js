@@ -73,8 +73,10 @@ router.get('/verify',  (req, res) =>{
 router.get('/verifyTransac/:request_id',async (req, res) =>{
 	const { request_id } = req.params
 
+	console.log("sth is verifying")
+
 	try{
-		const user = await User.findOne({request_id: request_id, leased: false })
+		const user = await User.findOne({request_id: request_id })
 
 		// check for status: 'paid'
 
