@@ -171,6 +171,7 @@ router.post('/triggerStkPush', async (req, res) =>{
 		const user = await User.findOne({_id: user_id})
 		user.request_id = res_data.request_id
 		user.mac_leased_to = mac
+		user.status = '0'
 
 		await user.save()
 
