@@ -123,6 +123,10 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 			return false
 		})
 
+	console.log(user.time_signed)
+	console.log(chosen_bundle.limit)
+
+
 	console.log(customDate(user.time_signed, chosen_bundle.limit))
 
 	if (customDate(user.time_signed, chosen_bundle.limit) > new Date(Date.now())){
