@@ -110,7 +110,7 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 
 	const {mac_addr} = req.params
 
-	const user = await User.finOne({ mac_leased_to: mac_addr})
+	const user = await User.findOne({ mac_leased_to: mac_addr})
 
 	if (!user) {
 		return res.json({status: 'failed'})
