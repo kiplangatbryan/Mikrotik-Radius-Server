@@ -56,7 +56,7 @@ router.get('/', async (req, res, next)=>{
 router.get('/accounts/:bundle_type',async  (req, res) =>{
 
 	const { bundle_type}  = req.params
-	const users = await User.find({leased: false, status: '0', time_limit: bundle_type})
+	const users = await User.find({leased: false, time_limit: bundle_type})
 
 	return res.status(200).json({users})
 })
