@@ -124,6 +124,8 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 		})
 
 	console.log(user.time_signed)
+	console.log(user.time_limit)
+	
 	console.log(chosen_bundle.limit)
 
 
