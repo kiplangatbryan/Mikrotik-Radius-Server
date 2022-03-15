@@ -128,7 +128,7 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 
 	console.log(customDate(user.time_signed, chosen_bundle[0].limit))
 
-	if (customDate(user.time_signed, chosen_bundle[0].limit) < new Date(Date.now())){
+	if (customDate(new Date(user.time_signed), chosen_bundle[0].limit) < new Date(Date.now())){
 		console.log('sth')
 		return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
 	}
@@ -194,8 +194,8 @@ router.post('/stkCallback', WebPayCb)
 
 
 
-const customDate = function(date, hrs) {
-    return new Date(date + (hrs * (60*60*1000)))
+const customDate = function(cdate, hrs) {
+    return new Date(cdate + (hrs * (60*60*1000)))
 }
 
 module.exports = router
