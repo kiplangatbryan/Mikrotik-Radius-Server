@@ -128,10 +128,12 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 
 	console.log(customDate(user.time_signed, chosen_bundle[0].limit))
 
-	if (customDate(user.time_signed, chosen_bundle[0].limit) > new Date(Date.now())){
+	if (customDate(user.time_signed, chosen_bundle[0].limit) < new Date(Date.now())){
 		console.log('sth')
 		return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
 	}
+
+	console.log('failed')
 	return res.json({status: 'failed'})
 
 
