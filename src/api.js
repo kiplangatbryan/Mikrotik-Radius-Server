@@ -49,6 +49,7 @@ exports.WebPayCb =  async (req, res) => {
     // success
     user.status = 'paid'
     user.time_signed = currentTime()
+    user.leased = true
   }
   else{
     user.status = 'failed'

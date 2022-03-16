@@ -116,24 +116,11 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 		return res.json({status: 'failed'})
 	}
 
-	const chosen_bundle = bundle_offer.filter((offer) =>{
-			if (offer.name == user.time_limit){
-				return true
-			}
-			return false
-		})
+	user.mac_leased_to = ""
 
+	await user.save()
 
-
-
-	if (customDate(new Date(user.time_signed), chosen_bundle[0].limit) > new Date(Date.now())){
-		console.log('sth')
-		return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
-	}
-
-	return res.json({status: 'failed'})
-
-
+	return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
 
 
 })
