@@ -13,9 +13,6 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 // common settings
-app.set("view engine", "ejs");
-app.set("views", "src/pages");
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors())
