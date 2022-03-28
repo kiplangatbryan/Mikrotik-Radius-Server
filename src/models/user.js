@@ -32,7 +32,7 @@ const userSchema = new Schema(
          type: String
       },
       time_signed: {
-         type: String
+         type: Date
       }
    }
 )
