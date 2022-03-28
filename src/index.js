@@ -20,7 +20,7 @@ app.use(cors())
 app.use(my_routes)
 
 app.use('*', (req, res)=>{
-    return res.status(404).render('404')
+    return res.status(404).json({ msg: "requested resource not available !"})
 })
 
 app.use((err, req, res, next) => {
