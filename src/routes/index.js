@@ -70,6 +70,8 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 			return res.status(200).json({ status: 'confirmed', user: { username: user.userName, passwd: user.passwd }})
 		}
 		if (user.status == 'failed') {
+				user.status = "0"
+				await user.save()
 				return res.status(200).json({ status: 'failed'})
 			}
 
