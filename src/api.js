@@ -5,6 +5,7 @@ const moment = require("moment");
 const CronJob = require("cron").CronJob;
 
 const User = require('./models/user')
+const bundle_offer  = require('./data.js')
 
 dotenv.config({ path: path.join(__dirname, "../config/config.env") });
 
@@ -43,12 +44,18 @@ exports.WebPayCb =  async (req, res) => {
   
 
   const user = await User.findOne({request_id: stkCallback.TinyPesaID})
-
+  
+  const offer = bundle_offer.filter(off => {
+  	if (off.name == user.time_limit) {
+		return true
+	}
+  	return false
+  })
  
   if (stkCallback.ResultCode == 0) {
     // success
     user.status = 'paid'
-    user.time_signed = currentTime()
+    user.time_signed = customDate(offer[0].limit)
     user.leased = true
   }
   else{
