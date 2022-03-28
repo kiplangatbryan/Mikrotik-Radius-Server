@@ -74,7 +74,7 @@ exports.DataReset = new CronJob(
   function () {
   //  should run every 16 hrs
       // check if session time has exceeded
-      User.updateMany({ leased: true, status: 'failed' }, { mac_leased_to: '',status: '0', time_signed: '', leased: false, request_id: '' }, { multi: true }, (err, doc)=>{
+      User.updateMany({  status: 'failed',  }, { mac_leased_to: '',status: '0', time_signed: '', leased: false, request_id: '' }, { multi: true }, (err, doc)=>{
         if (err) { console.log(err) }else{
         }
 
