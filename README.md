@@ -1,9 +1,7 @@
-# saf-stkpush
-simple node-server to test safaricom api's
+# Wifi Captive Portal REST
+simple node-server for external Router Board Authentication
 
-## usage
+## API's
 
-Apis' tested include 
-  - C2B
-  - Mpesa Express ( lipa na mpesa online )
+Api's used is Tinypesa which processes Mpesa Express 
 
