@@ -40,36 +40,13 @@ const bundle_offer = [
 ] 
 
 const { triggerWebPay, WebPayCb } = require('../api')
- 
-router.get('/', async (req, res, next)=>{
-
-	try {
-		const users = await User.find({leased: false, status: '0'})
-		return res.render('index', { users, user_data: JSON.stringify(req.query)})
-	}
-	catch(err){
-		next(err)
-	}
-})
-
 
 router.get('/accounts/:bundle_type',async  (req, res) =>{
-
+	
 	const { bundle_type}  = req.params
 	const users = await User.find({leased: false, time_limit: bundle_type})
 
 	return res.status(200).json({users})
-})
-
-router.get('/verify',  (req, res) =>{
-	const { request_id } = req.query
-
-	console.table(req.query)
-
-	if (request_id) {
-		return res.render('verify', req.query)
-	}
-	return res.redirect('/')	
 })
 
 router.get('/verifyTransac/:request_id',async (req, res) =>{
@@ -121,7 +98,6 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 	await user.save()
 
 	return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
-
 
 })
 
