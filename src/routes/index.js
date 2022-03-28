@@ -95,8 +95,6 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 		return res.json({status: 'failed'})
 	}
 
-	user.mac_leased_to = ""
-
 	await user.save()
 
 	return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
@@ -157,9 +155,8 @@ router.post('/triggerStkPush', async (req, res) =>{
 router.post('/stkCallback', WebPayCb)
 
 
-
-const customDate = function(cdate, hrs) {
-    return new Date(cdate + (hrs * (60*60*1000)))
+const customDate = function(hrs) {
+    return new Date(Date.now() + (hrs * (60*60*1000)))
 }
 
 module.exports = router
