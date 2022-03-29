@@ -5,11 +5,9 @@ const moment = require("moment");
 const CronJob = require("cron").CronJob;
 
 const User = require('./models/user')
-const bundle_offer  = require('./data.js')
+const bundle_offer  = require('./data.js')()
 
 dotenv.config({ path: path.join(__dirname, "../config/config.env") });
-
-
 
 exports.triggerWebPay = async (msisdn, amount) => {
 
@@ -81,7 +79,7 @@ exports.DataReset = new CronJob(
   function () {
   //  should run every 16 hrs
       // check if session time has exceeded
-      User.updateMany({ $and: {  leased: true, time_signed: $lt: { new Date(Date.now())  } }, { mac_leased_to: '',status: '0', time_signed: '0', leased: false, request_id: '' }, { multi: true }, (err, doc)=>{
+      User.updateMany({ $and: {  leased: true, time_signed: { $lt:  currentTime() }}}, { mac_leased_to: '',status: '0', time_signed: '0', leased: false, request_id: '' }, { multi: true }, (err, doc)=>{
         if (err) { console.log(err) }else{
         }
 

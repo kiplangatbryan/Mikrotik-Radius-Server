@@ -31,4 +31,6 @@ const bundle_offer = [
     }  
 ] 
 
-module.exports = bundle_offer
+module.exports = function() {
+    return bundle_offer
+}

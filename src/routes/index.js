@@ -6,7 +6,7 @@ const assert = require('assert')
 
 const fs = require('fs')
 
-const  bundle_offer  = require("../data.js") 
+const  bundle_offer  = require("../data.js")()
 
 const { triggerWebPay, WebPayCb } = require('../api')
 
