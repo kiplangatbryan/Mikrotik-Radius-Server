@@ -41,6 +41,7 @@ router.get('/verifyTransac/:request_id',async (req, res) =>{
 		if (user.status == 'failed') {
 				user.status = "0"
 				await user.save()
+				
 				return res.status(200).json({ status: 'failed'})
 			}
 
@@ -63,7 +64,7 @@ router.get('/StalePayment/:mac_addr',async (req, res) =>{
 	if (!user) {
 		return res.json({status: 'failed'})
 	}
-
+	user.leased = true
 	await user.save()
 
 	return res.json({status: 'validated', user: { username: user.userName, passwd: user.passwd}})
