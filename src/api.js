@@ -75,12 +75,13 @@ exports.WebPayCb =  async (req, res) => {
 
 
 exports.DataReset = new CronJob(
-  "* * */10 * * *", // Run every 10 hrs
+  "*/10 * * * * *", // Run every 10 hrs
   function () {
   //  should run every 16 hrs
       // check if session time has exceeded
       User.updateMany({ $and: {  leased: true, time_signed: { $lt:  currentTime() }}}, { mac_leased_to: '',status: '0', time_signed: '0', leased: false, request_id: '' }, { multi: true }, (err, doc)=>{
         if (err) { console.log(err) }else{
+		console.log(doc)
         }
 
       })
