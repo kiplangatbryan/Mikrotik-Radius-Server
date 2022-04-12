@@ -75,7 +75,7 @@ exports.WebPayCb =  async (req, res) => {
 
 
 exports.DataReset = new CronJob(
-  "*/10 * * * * *", // Run every 10 hrs
+  "* * */1 * * *", // Run every 10 hrs
   function () {
   //  should run every 16 hrs
       // check if session time has exceeded
